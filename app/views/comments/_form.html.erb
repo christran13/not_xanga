@@ -1,0 +1,32 @@
+<%= form_with(model: @comment, local: true) do |form| %>
+
+	<% if @comment.errors.any? %>
+		<div class="error_explanation">
+			<h2><%= pluralize(@comment.errors.count, "errors") %></h2>
+		</div>
+
+		<ul>
+			<% @comment.errors.full_messages.each do |message| %>
+			<li><%= message %></li>
+			<% end %>
+		</ul>
+
+	<% end %>
+
+
+<div class="form-group">
+	<%= form.text_field :author, class: "form-control", placeholder: "Your name." %>
+</div>
+
+<div class="form-group">
+	<%= form.text_area :comment_entry, class: "form-control", rows: 4, placeholder: "What do you have to say?" %>
+</div>
+
+	<%= form.hidden_field :blog_post_id, value: @blog_post.id %>
+
+<div class="actions">
+	<%= form.submit "Submit Comment", class: "btn btn-default" %>
+</div>
+
+
+<% end %>
