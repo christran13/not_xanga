@@ -5,6 +5,10 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+gem 'gravatarify'
+gem 'bootstrap-kaminari-views'
+gem 'kaminari'
+gem 'animate.css-rails'
 gem 'devise'
 gem 'bootstrap-sass'
 gem 'jquery-rails'

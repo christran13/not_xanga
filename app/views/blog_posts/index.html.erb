@@ -1,4 +1,4 @@
-<h1 class="bounceInLeft">NotXanga</h1>
+<h1>Welcome back, <%= current_user.username %>!</h1>
 <br>
 <br>
 
@@ -7,10 +7,6 @@
 </div>
 <% end %>
 
-<%= link_to "Create New Post", new_blog_post_path, class: "btn btn-success" %>
-<br>
-<br>
-
 <% @blog_posts.each do |blog_post| %>
 	<div class="panel panel-default">
 		<div class="panel-heading">
@@ -18,15 +14,16 @@
 			
 		</div>
 		<div class="panel-body">
-			by <%= blog_post.author %><br>
+			by <%= link_to blog_post.user.username, user_posts_path(name: blog_post.user.username) %><br>
 			<p><%= blog_post.created_at.strftime('%m/%d/%Y at %I:%M%p') %></p>
 			<%= truncate blog_post.blog_entry, length: 20 %>
 			<%= link_to 'read more', blog_post_path(id: blog_post.id) %> 
 		</div>
 		<div class="panel-footer">
-
+			<% if current_user.id == blog_post.user_id %>
 			<%= link_to "Edit", edit_blog_post_path(id: blog_post.id), class: "btn btn-warning" %>
 			<%= link_to "Delete", blog_post_path(id: blog_post.id), method: :delete, data: {confirm: "Are You Sure?"}, class: "btn btn-danger" %>
+			<% end %>
 			
 		</div>
 
@@ -34,3 +31,4 @@
 
 <% end %>
 
+<%= paginate @blog_posts, :theme => 'twitter-bootstrap-3', :pagination_class => 'pagination-sm' %>
